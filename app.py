@@ -3,7 +3,9 @@ import pandas as pd
 import pickle
 
 with open("CreditScore.pkl", "rb") as f:
-    model = pickle.load(f)
+    data = pickle.load(f)
+model = data["model"]
+scaler = data["scaler"]
 
 def predict_credit(
     revolving_utilization,
@@ -31,7 +33,8 @@ def predict_credit(
         "NumberOfDependents": dependents
     }])
 
-    prob = model.predict_proba(input_data)[0][1]
+    input_scaled = scaler.transform(input_data)
+    prob = model.predict_proba(input_scaled)[0][1]
     threshold = 0.42
 
     if prob >= threshold:

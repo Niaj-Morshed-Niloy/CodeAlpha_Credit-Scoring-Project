@@ -55,4 +55,4 @@ print(f"4. F1-Score  : {f1:.4f}")
 print(f"5. ROC-AUC   : {roc_auc:.4f}")
 
 with open("CreditScore.pkl", "wb") as f:
-    pickle.dump(model, f)
+    pickle.dump({"model": model, "scaler": scaler}, f)
